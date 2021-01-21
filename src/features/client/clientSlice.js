@@ -6,7 +6,12 @@ import storage from 'redux-persist/lib/storage';
 export const clientSlice = createSlice({
   name: 'client',
   initialState: {
-    clients: []
+    clients: [
+      {names: 'Juan Recalde', email:'jrecalde@gmail.com', phone: '0989755008', status:'Active'},
+      {names: 'Marlon Zela', email:'mzela@tumail.com', phone: '0978455998', status:'Active'},
+      {names: 'Tony Lopez', email:'tlopez@terna.com', phone: '0963744112', status:'Active'},
+      {names: 'Carlos Mape', email:'cmape@gmail.com', phone: '0963989562', status: 'Active'}
+    ]
   },
   reducers: {
     addList: (state, action) =>  {
@@ -26,7 +31,7 @@ export const { addList, decrement } = clientSlice.actions;
 
 export const clientList = state => state.client.clients
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   client: clientSlice.reducer
 })
 

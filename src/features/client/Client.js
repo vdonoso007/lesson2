@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { addList, clientList } from './clientSlice';
+import { addList, clientList, rootReducer } from './clientSlice';
 import { makeStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody';
@@ -9,6 +9,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper'
+import store from '../../app/store'
 
 const useStyles = makeStyles({
     table: {
@@ -27,22 +28,13 @@ const records = [
     createClients('Carlos Mape', 'cmape@gmail.com', '0963989562', 'Active')
 ]
 
-
-
-const Initialization = (() => {
-    
-    const dispatch = useDispatch()
-    dispatch(addList(records))
-})
-
 export function Client() {
     
     const classes = useStyles()
-    Initialization()
+    const dispatch = useDispatch()
+    //dispatch(addList(records))
 
-    const clientData = useSelector(clientList)
-
-    console.log('aja ' + clientData);
+    const clientData = store.store.getState().client.client.clients
 
     return (
         <TableContainer component={Paper}>
@@ -57,7 +49,7 @@ export function Client() {
                 </TableHead>
                 <TableBody>
                     {
-                        records.map((item) => (
+                        clientData.map((item) => (
                                 <TableRow key={item.names}>
                                     <TableCell component="th" scope="row">{item.names}</TableCell>
                                     <TableCell >{item.email}</TableCell>
